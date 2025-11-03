@@ -1,0 +1,85 @@
+<div class="formulario-producto">
+  <h2>{{ esEdicion ? 'Editar Producto' : 'Agregar Producto' }}</h2>
+
+  <form (ngSubmit)="guardar()" #formProducto="ngForm" novalidate>
+    <label for="nombre">Nombre del producto:</label>
+    <input
+      type="text"
+      id="nombre"
+      name="nombre"
+      [(ngModel)]="producto.nombre"
+      required
+      #nombre="ngModel"
+      [class.invalido]="nombre.invalid && nombre.touched"
+    />
+    <small *ngIf="nombre.invalid && nombre.touched" class="error">
+      El nombre es obligatorio
+    </small>
+
+    <label for="descripcion">Descripción:</label>
+    <textarea
+      id="descripcion"
+      name="descripcion"
+      [(ngModel)]="producto.descripcion"
+    ></textarea>
+
+    <label for="categoria">Categoría:</label>
+    <select
+      id="categoria"
+      name="categoria"
+      [(ngModel)]="producto.categoria"
+      required
+      #categoria="ngModel"
+      [class.invalido]="categoria.invalid && categoria.touched"
+    >
+      <option value="">Seleccione una categoría</option>
+      <option *ngFor="let cat of categoriasDisponibles" [value]="cat">
+        {{ cat }}
+      </option>
+    </select>
+    <small *ngIf="categoria.invalid && categoria.touched" class="error">
+      Debe seleccionar una categoría
+    </small>
+
+    <label for="unidad_medida">Unidad de medida:</label>
+    <select
+      id="unidad_medida"
+      name="unidad_medida"
+      [(ngModel)]="producto.unidad_medida"
+      required
+      #unidad="ngModel"
+      [class.invalido]="unidad.invalid && unidad.touched"
+    >
+      <option value="">Seleccione una unidad</option>
+      <option
+        *ngFor="let u of unidadesDisponibles"
+        [value]="u.valor"
+      >
+        {{ u.texto }} ({{ u.valor }})
+      </option>
+    </select>
+    <small *ngIf="unidad.invalid && unidad.touched" class="error">
+      Debe seleccionar una unidad
+    </small>
+
+    <label for="precio_unitario">Precio unitario:</label>
+    <input
+      type="number"
+      id="precio_unitario"
+      name="precio_unitario"
+      [(ngModel)]="producto.precio_unitario"
+      required
+      min="0.01"
+      #precio="ngModel"
+      [class.invalido]="precio.invalid && precio.touched"
+    />
+    <small *ngIf="precio.invalid && precio.touched" class="error">
+      Ingrese un precio válido
+    </small>
+
+    <button type="submit" [disabled]="formProducto.invalid">
+      {{ esEdicion ? 'Actualizar' : 'Crear' }}
+    </button>
+    <button type="button" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

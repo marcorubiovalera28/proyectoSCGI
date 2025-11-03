@@ -1,0 +1,46 @@
+<div class="kardex-general">
+  <div class="header">
+    <h2>Kardex General</h2>
+    <div class="acciones">
+      <button (click)="cargarMovimientos()">🔄 Refrescar</button>
+      <button (click)="imprimirPDF()">📄 Exportar PDF</button>
+    </div>
+  </div>
+
+  <div class="filtro">
+    <input type="text" placeholder="🔍 Buscar producto" [(ngModel)]="productoFiltrado" />
+  </div>
+
+  <div class="tabla-container" *ngIf="movimientosFiltrados().length > 0; else sinMovimientos">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Producto</th>
+          <th>Referencia</th>
+          <th>Cantidad</th>
+          <th>Stock anterior</th>
+          <th>Stock actual</th>
+          <th>Usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of movimientosFiltrados()"[@fadeIn]>
+          <td>{{ m.fecha }}</td>
+          <td><span class="badge" [ngClass]="m.tipo">{{ m.tipo }}</span></td>
+          <td>{{ m.producto }}</td>
+          <td>{{ m.referencia || '-' }}</td>
+          <td>{{ m.cantidad }}</td>
+          <td>{{ m.stock_anterior }}</td>
+          <td>{{ m.stock_actual }}</td>
+          <td>{{ m.usuario }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #sinMovimientos>
+    <p class="mensaje-vacio">⚠️ No hay movimientos registrados.</p>
+  </ng-template>
+</div>

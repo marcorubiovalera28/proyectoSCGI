@@ -1,0 +1,36 @@
+<div class="kardex-referencia-container">
+    <h2>Kardex por Referencia</h2>
+    <input
+      type="text"
+      placeholder="Buscar por referencia (ej: C001)"
+      [(ngModel)]="referencia"
+    />
+    <table *ngIf="referencia">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Stock Anterior</th>
+          <th>Stock Actual</th>
+          <th>Usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of kardexFiltrado()">
+          <td>{{ item.fecha }}</td>
+          <td>{{ item.tipo_movimiento }}</td>
+          <td>{{ item.producto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>{{ item.stock_anterior }}</td>
+          <td>{{ item.stock_actual }}</td>
+          <td>{{ item.usuario }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="referencia && kardexFiltrado().length === 0" class="error">
+      No se encontraron movimientos con esa referencia.
+    </p>
+  </div>
+  

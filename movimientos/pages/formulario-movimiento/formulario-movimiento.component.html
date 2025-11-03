@@ -1,0 +1,86 @@
+<div class="formulario-movimiento">
+  <h2>Registrar {{ movimiento.tipo | uppercase }}</h2>
+
+  <form (ngSubmit)="guardar()" #formMovimiento="ngForm" novalidate>
+    <label for="tipo">Tipo de movimiento:</label>
+    <select
+      id="tipo"
+      name="tipo"
+      [(ngModel)]="movimiento.tipo"
+      required
+      #tipo="ngModel"
+      [class.invalido]="tipo.invalid && tipo.touched"
+    >
+      <option value="">Seleccione tipo</option>
+      <option value="entrada">Entrada</option>
+      <option value="salida">Salida</option>
+      <option value="traslado">Traslado</option>
+      <option value="merma">Merma</option>
+    </select>
+    <small *ngIf="tipo.invalid && tipo.touched" class="error">
+      Selecciona el tipo de movimiento
+    </small>
+
+    <label for="producto">Producto:</label>
+    <select
+      id="producto"
+      name="producto"
+      [(ngModel)]="movimiento.producto"
+      required
+      #producto="ngModel"
+      [class.invalido]="producto.invalid && producto.touched"
+    >
+      <option value="">Selecciona producto</option>
+      <option *ngFor="let p of productos" [value]="p.nombre">
+        {{ p.nombre }}
+      </option>
+    </select>
+    <small *ngIf="producto.invalid && producto.touched" class="error">
+      El producto es obligatorio
+    </small>
+
+    <label for="cantidad">Cantidad:</label>
+    <input
+      type="number"
+      id="cantidad"
+      name="cantidad"
+      [(ngModel)]="movimiento.cantidad"
+      required
+      min="1"
+      #cantidad="ngModel"
+      [class.invalido]="cantidad.invalid && cantidad.touched"
+    />
+    <small *ngIf="cantidad.invalid && cantidad.touched" class="error">
+      Ingresa una cantidad válida
+    </small>
+
+    <label for="referencia">Referencia (opcional):</label>
+    <input
+      type="text"
+      id="referencia"
+      name="referencia"
+      [(ngModel)]="movimiento.referencia"
+    />
+
+    <label for="usuario">Usuario:</label>
+    <input
+      type="text"
+      id="usuario"
+      name="usuario"
+      list="usuarios"
+      [(ngModel)]="movimiento.usuario"
+      required
+      #usuario="ngModel"
+      [class.invalido]="usuario.invalid && usuario.touched"
+    />
+    <datalist id="usuarios">
+      <option *ngFor="let u of usuarios" [value]="u.nombre_usuario"></option>
+    </datalist>
+    <small *ngIf="usuario.invalid && usuario.touched" class="error">
+      Ingresa el nombre del usuario
+    </small>
+
+    <button type="submit" [disabled]="formMovimiento.invalid">Registrar</button>
+    <button type="button" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

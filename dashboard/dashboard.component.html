@@ -1,0 +1,46 @@
+<div class="dashboard">
+  <h2>Bienvenido al sistema de gestión de inventarios</h2>
+
+  <div class="tarjetas">
+    <div class="tarjeta tarjeta-azul">
+      <h3>{{ productos.length }}</h3>
+      <p>Productos registrados</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <h3>{{ movimientos.length }}</h3>
+      <p>Movimientos totales</p>
+    </div>
+    <div class="tarjeta tarjeta-naranja">
+      <h3>{{ stockTotal }}</h3>
+      <p>Stock disponible</p>
+    </div>
+  </div>
+
+  <!-- Mostramos el graficos solo si estamos en el navegador -->
+  <div class="grafico" *ngIf="isBrowser">
+    <h3>Stock disponible por producto</h3>
+    <canvas
+      baseChart
+      [data]="{
+        labels: labels,
+        datasets: [{
+          data: data,
+          label: 'Stock',
+          backgroundColor: '#4A90E2'
+        }]
+      }"
+      [options]="{
+        responsive: true,
+        maintainAspectRatio: false
+      }"
+      chartType="bar">
+    </canvas>
+  </div>
+
+  <div *ngIf="productosSinStock.length > 0" class="alerta">
+    <p>⚠️ Los siguientes productos están sin stock:</p>
+    <ul>
+      <li *ngFor="let p of productosSinStock">{{ p }}</li>
+    </ul>
+  </div>
+</div>

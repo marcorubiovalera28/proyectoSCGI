@@ -1,0 +1,34 @@
+<div class="settings-container">
+    <h2>⚙️ Configuración</h2>
+  
+    <!-- 👤 MI PERFIL -->
+    <section class="config-section">
+      <h3>👤 Mi Perfil</h3>
+      <p><strong>Usuario:</strong> {{ usuario?.nombre_usuario }}</p>
+      <p><strong>Rol:</strong> {{ usuario?.rol }}</p>
+    </section>
+  
+    <!-- 🏁 PREFERENCIA DE INICIO -->
+    <section class="config-section">
+      <h3>🏁 Página de inicio</h3>
+      <label for="inicioPreferido">¿A dónde quieres ir al iniciar sesión?</label>
+      <select id="inicioPreferido" [(ngModel)]="inicioPreferido" (change)="guardarInicioPreferido()">
+        <option value="dashboard">Dashboard</option>
+        <option value="productos">Productos</option>
+        <option value="movimientos">Movimientos</option>
+        <option value="kardex/producto">Kardex</option>
+      </select>
+      <p class="confirm" *ngIf="mensaje">{{ mensaje }}</p>
+    </section>
+  
+    <!-- 🎨 MODO OSCURO -->
+    <section class="config-section">
+      <h3>🎨 Apariencia</h3>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="modoOscuro" (change)="toggleModoOscuro()" />
+        <span class="slider"></span>
+      </label>
+      <span>{{ modoOscuro ? 'Modo Oscuro Activado' : 'Modo Claro Activado' }}</span>
+    </section>
+  </div>
+  

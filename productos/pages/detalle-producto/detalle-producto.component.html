@@ -1,0 +1,13 @@
+<div class="detalle-producto" *ngIf="producto">
+  <h2>Detalle del producto</h2>
+
+  <div class="datos">
+    <p><strong>Nombre:</strong> {{ producto.nombre }}</p>
+    <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+    <p><strong>Unidad de medida:</strong> {{ producto.unidad_medida }}</p>
+    <p><strong>Precio unitario:</strong> S/ {{ producto.precio_unitario }}</p>
+    <p><strong>Descripción:</strong> {{ producto.descripcion || 'Sin descripción' }}</p>
+  </div>
+
+  <button (click)="volver()">🔙 Volver</button>
+</div>

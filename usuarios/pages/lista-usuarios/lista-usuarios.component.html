@@ -1,0 +1,48 @@
+<div class="usuarios">
+  <div class="encabezado">
+    <h2>Usuarios registrados</h2>
+    <button (click)="nuevoUsuario()">➕ Nuevo usuario</button>
+  </div>
+
+  <div class="filtro">
+    <input
+      type="text"
+      placeholder="🔍 Buscar usuario..."
+      [(ngModel)]="busqueda"
+    />
+  </div>
+
+  <div class="tabla-container" *ngIf="usuariosFiltrados().length > 0; else sinUsuarios">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de usuario</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of usuariosFiltrados()">
+          <td>{{ u.id }}</td>
+          <td>{{ u.nombre_usuario }}</td>
+          <td>{{ u.rol }}</td>
+          <td>
+            <span [ngClass]="u.estado ? 'activo' : 'inactivo'">
+              {{ u.estado ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+          <td>
+            <button (click)="editar(u)">✏️</button>
+            <button *ngIf="usuario?.rol === 'Administrador'" (click)="eliminar(u)">🗑️ Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #sinUsuarios>
+    <p class="mensaje-vacio">No se encontraron usuarios.</p>
+  </ng-template>
+</div>

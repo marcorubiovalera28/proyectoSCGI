@@ -1,0 +1,30 @@
+.kardex-referencia-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+  
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+    }
+  
+    .error {
+      color: red;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th, td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+  

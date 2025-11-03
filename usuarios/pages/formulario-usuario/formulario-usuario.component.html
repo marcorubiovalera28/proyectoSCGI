@@ -1,0 +1,93 @@
+<div class="formulario-usuario">
+  <h2>{{ esEdicion ? 'Editar Usuario' : 'Crear Usuario' }}</h2>
+
+  <form (ngSubmit)="guardar()" #formUsuario="ngForm" novalidate>
+    
+    <label for="nombre_usuario">Nombre de usuario:</label>
+    <input
+      type="text"
+      id="nombre_usuario"
+      name="nombre_usuario"
+      [(ngModel)]="usuario.nombre_usuario"
+      required
+      #nombre_usuario="ngModel"
+      [class.invalido]="nombre_usuario.invalid && nombre_usuario.touched"
+    />
+    <small *ngIf="nombre_usuario.invalid && nombre_usuario.touched" class="error">
+      El nombre de usuario es obligatorio
+    </small>
+
+
+    <ng-container *ngIf="!esEdicion">
+      <label for="contrasenia">Contraseña:</label>
+      <input
+        type="password"
+        id="contrasenia"
+        name="contrasenia"
+        [(ngModel)]="usuario.contrasenia"
+        required
+        minlength="6"
+        #contrasenia="ngModel"
+        [class.invalido]="contrasenia.invalid && contrasenia.touched"
+      />
+      <small *ngIf="contrasenia.errors?.['required'] && contrasenia.touched" class="error">
+        La contraseña es obligatoria
+      </small>
+      <small *ngIf="contrasenia.errors?.['minlength'] && contrasenia.touched" class="error">
+        Mínimo 6 caracteres
+      </small>
+    </ng-container>
+
+    <ng-container *ngIf="esEdicion">
+      <label>
+        <input type="checkbox" [(ngModel)]="cambiarClave" name="cambiarClave" />
+        Cambiar contraseña
+      </label>
+
+      <div *ngIf="cambiarClave">
+        <label for="nueva_contrasenia">Nueva contraseña:</label>
+        <input
+          type="password"
+          id="nueva_contrasenia"
+          name="nueva_contrasenia"
+          [(ngModel)]="nuevaContrasenia"
+          required
+          minlength="6"
+          #nuevaContraseniaModel="ngModel"
+          [class.invalido]="nuevaContraseniaModel.invalid && nuevaContraseniaModel.touched"
+        />
+        <small *ngIf="nuevaContraseniaModel.errors?.['required'] && nuevaContraseniaModel.touched" class="error">
+          La nueva contraseña es obligatoria
+        </small>
+        <small *ngIf="nuevaContraseniaModel.errors?.['minlength'] && nuevaContraseniaModel.touched" class="error">
+          Mínimo 6 caracteres
+        </small>
+      </div>
+    </ng-container>
+
+    <label for="rol">Rol:</label>
+    <select
+      id="rol"
+      name="rol"
+      [(ngModel)]="usuario.rol"
+      required
+      #rol="ngModel"
+      [class.invalido]="rol.invalid && rol.touched"
+    >
+      <option value="">Seleccione un rol</option>
+      <option value="Administrador">Administrador</option>
+      <option value="Vendedor">Vendedor</option>
+      <option value="Almacenero">Almacenero</option>
+    </select>
+    <small *ngIf="rol.invalid && rol.touched" class="error">
+      Debe seleccionar un rol
+    </small>
+
+    <div class="acciones">
+      <button type="submit" [disabled]="formUsuario.invalid || (cambiarClave && nuevaContrasenia.length < 6)">
+        {{ esEdicion ? 'Actualizar' : 'Crear' }}
+      </button>
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>

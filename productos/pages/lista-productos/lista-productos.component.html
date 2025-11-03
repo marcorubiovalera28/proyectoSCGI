@@ -1,0 +1,37 @@
+<div class="productos">
+  <h2>Listado de Productos</h2>
+
+  <div class="barra-superior">
+    <input [(ngModel)]="busqueda" placeholder="🔍 Buscar producto..." />
+    <button (click)="nuevoProducto()">+ Nuevo Producto</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Unidad</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productosFiltrados()" [@fadeIn]>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.categoria }}</td>
+        <td>{{ p.unidad_medida }}</td>
+        <td>S/ {{ p.precio_unitario }}</td>
+        <td>
+          <button (click)="verDetalle(p)">👁️</button>
+          <button (click)="editar(p)">✏️</button>
+          <button (click)="eliminar(p)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="productosFiltrados().length === 0" class="sin-resultados">
+    No se encontraron productos con ese nombre.
+  </p>
+</div>

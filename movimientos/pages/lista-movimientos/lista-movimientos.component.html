@@ -1,0 +1,45 @@
+<div class="lista-movimientos">
+  <h2>🔁 Movimientos</h2>
+
+  <div class="busqueda">
+    <input
+      type="text"
+      [(ngModel)]="busqueda"
+      placeholder="Buscar por producto..."
+    />
+    <button (click)="registrarNuevo()">➕ Nuevo Movimiento</button>
+  </div>
+
+  <div class="scroll-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Referencia</th>
+          <th>Stock Ant.</th>
+          <th>Stock Act.</th>
+          <th>Usuario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of movimientosFiltrados()" [@fadeIn]>
+          <td>{{ m.fecha }}</td>
+          <td>{{ m.tipo | titlecase }}</td>
+          <td>{{ m.producto }}</td>
+          <td>{{ m.cantidad }}</td>
+          <td>{{ m.referencia || '-' }}</td>
+          <td>{{ m.stock_anterior }}</td>
+          <td>{{ m.stock_actual }}</td>
+          <td>{{ m.usuario }}</td>
+          <td>
+            <button (click)="editar(m)">✏️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
